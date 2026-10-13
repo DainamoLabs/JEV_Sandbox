@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="A local playground for Jevos: give it context, ask questions, and see the probability of each answer.">
+  <title>Jevos playground</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23d5fa79'/%3E%3Ctext x='9' y='23' font-family='sans-serif' font-weight='bold' font-size='25' fill='%23141614'%3Ej%3C/text%3E%3C/svg%3E">
+  <link rel="stylesheet" href="/static/style.css">
+  <script src="/static/app.js" defer></script>
+</head>
+<body>
+  <main class="app">
+    <header class="header">
+      <div class="brand"><span class="wordmark">jev<span>.</span></span><span class="brand-divider"></span><h1>Decision playground</h1></div>
+      <button class="connection" id="connection" type="button" title="Check connection to llama.cpp"><span class="status-dot"></span><span id="connection-label">Checking model…</span></button>
+    </header>
+
+    <section class="preset-bar" aria-label="Example selection">
+      <div class="presets" id="presets" role="group" aria-label="Examples"></div>
+      <button class="text-button" id="reset" type="button" disabled>Reset example</button>
+    </section>
+
+    <form id="demo-form">
+      <div class="workspace">
+        <section class="context-panel panel" aria-labelledby="context-title">
+          <div class="panel-heading">
+            <h2 id="context-title">Context</h2>
+            <label class="format-control"><span class="sr-only">Context format</span><select id="format"><option value="text">Text</option><option value="json">JSON</option></select></label>
+          </div>
+          <label class="sr-only" for="state">Context for the model</label>
+          <textarea id="state" spellcheck="false" maxlength="50000" placeholder="Loading examples…" required></textarea>
+          <div class="context-foot"><span>Edit the context. See what changes.</span><span id="char-count"></span></div>
+        </section>
+
+        <section class="decisions-panel" aria-labelledby="decisions-title">
+          <div class="decisions-heading"><h2 id="decisions-title">Decisions</h2><span>Probability of yes</span></div>
+          <div id="questions" class="question-list"></div>
+        </section>
+      </div>
+
+      <div class="toolbar">
+        <div class="run-meta" aria-live="polite"><span id="run-status">Choose an example to start.</span><span id="elapsed"></span></div>
+        <button class="run-button" id="run" type="submit" disabled><span class="spinner" aria-hidden="true"></span><span id="run-label">Run decisions</span><kbd id="shortcut">Ctrl ↵</kbd></button>
+      </div>
+      <div class="error" id="error" role="alert" hidden></div>
+      <p class="sr-only" id="announcement" aria-live="polite"></p>
+    </form>
+
+    <footer><span>JEVOS <span class="footer-separator">/</span> llama.cpp</span><span>Local model. Live results.</span></footer>
+  </main>
+</body>
+</html>
